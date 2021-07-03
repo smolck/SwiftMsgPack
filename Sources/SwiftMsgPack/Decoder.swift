@@ -165,6 +165,11 @@ public extension Data {
 		// Spec is defined here:
 		// https://github.com/msgpack/msgpack/blob/master/spec.md#formats-bool
 		switch type {
+        case 0xc7:
+            let size = try stream.read8Bit()
+            let type = try stream.read8Bit()
+            let data = try self.unpack(stream: &stream)
+            return [size, type, data]
 		
 		// POSITIVE FIX INT
 		// positive fixint	0xxxxxxx	0x00 - 0x7f

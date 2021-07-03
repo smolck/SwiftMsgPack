@@ -87,11 +87,14 @@ public enum MsgPackType: CustomStringConvertible {
 	case `nil`
 	// bool
 	case boolean(_: Bool)
+
+    case ext8
 	
 	/// The `UInt8` which represent the type of data
 	public func value() throws -> UInt8 {
 		switch self {
 		
+        case .ext8: return UInt8(0xc7)
 		// numeric values
 		case .uInt64:				return UInt8(0xcf)			// uint 64	11001111	0xcf
 		case .int64:				return UInt8(0xd3)			// int 64	11010011	0xd3
@@ -178,6 +181,7 @@ public enum MsgPackType: CustomStringConvertible {
 	/// String representation
 	public var description: String {
 		switch self {
+        case .ext8:                     return "ext8"
 		case .uInt64:					return "uInt64"
 		case .int64:					return "int64"
 		case .uInt32:					return "uInt32"
