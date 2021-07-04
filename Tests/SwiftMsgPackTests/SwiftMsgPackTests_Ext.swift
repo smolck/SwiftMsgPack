@@ -14,7 +14,12 @@ class SwiftMsgPackTests_Ext: XCTestCase {
     }
     
     func testDecodeExt() throws {
-        let data = Data([148, 1, 0, 192, 199, 3, 1, 205, 3, 232])
+        var data = Data([148, 1, 0, 192, 199, 3, 1, 205, 3, 232])
+        if let decoded = try data.unpack() as? [Any] {
+            print(decoded)
+        }
+
+        data = Data([148, 1, 0, 192, 212, 0, 1]) // fixext1
         if let decoded = try data.unpack() as? [Any] {
             print(decoded)
         }

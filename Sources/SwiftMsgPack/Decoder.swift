@@ -165,6 +165,10 @@ public extension Data {
 		// Spec is defined here:
 		// https://github.com/msgpack/msgpack/blob/master/spec.md#formats-bool
 		switch type {
+        case 0xd4:
+            let type = try stream.read8Bit()
+            let data = try stream.read8Bit()
+            return [0 /*TODO(smolck)*/, type, data]
         case 0xc7:
             let size = try stream.read8Bit()
             let type = try stream.read8Bit()
